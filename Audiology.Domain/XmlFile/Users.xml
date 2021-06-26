@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<users>
+  <user>
+    <email>abc@audiology.com</email>
+    <password>Audiology1!</password>
+    <usertype>1</usertype>
+  </user>
+  <user>
+    <email>xyz@audiology.com</email>
+    <password>Audiology1!</password>
+    <usertype>2</usertype>
+  </user>
+</users>

@@ -1,0 +1,13 @@
+﻿@model  Audiology.Models.UserViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Login</h1>
+<form asp-controller="account" asp-action="Login" method="post">
+    <input asp-for="Email" type="email"/>
+    <br />
+    <input asp-for="Password" type="password" />
+    <button type="submit">Login</button>
+</form>
+

@@ -1,0 +1,100 @@
+﻿
+@{
+    ViewData["Title"] = "EstimationScreen";
+}
+
+<h1>EstimationScreen</h1>
+
+<div style="border:5px solid black">
+    <label style="float:right" id="userType">Welcome @ViewBag.UserType</label>
+    <label>Gold Price (per gram)</label>
+    <input type="number" id="price"/>
+    <br />
+    <label>Weight (Grams)</label>
+    <input type="number" id="gram" />
+
+    <label>Total Price</label>
+    <input type="number" readonly class="total" />
+    <br />
+    @if (ViewBag.UserType == "privileged")
+    {
+        <label>Discount</label>
+        <input type="text" readonly value="2%" id="dicount" />
+    }
+
+    <button type="button" id="calculate">Calculate</button>
+    <button type="button" class="float-right" id="printToScreen">Print to Screen</button>
+    <button type="button" class="float-right" id="printToFile">Print to File</button>
+
+    <button type="button" class="float-right" id="printToPaper">Print to Paper</button>
+    <button type="button">Close</button>
+
+</div>
+<div id="download">
+
+</div>
+
+<script>
+    $(document).ready(function () {
+       
+        $('#calculate').click(function () {
+            $('.total').val(calculate());
+        });
+        debugger;
+        $('#printToScreen').click(function () {
+            alert(calculate());
+        });
+        $('#printToFile').click(function () {
+            printToFile();
+        })
+    });
+    
+    function printToFile() {
+
+        var binaryData = [];
+        binaryData.push(calculate());
+        var fileName = "print.txt";
+        var a = document.createElement('a');
+        var url = window.URL.createObjectURL(new Blob(binaryData, { type: 'text/plain' }));
+        a.href = url;
+        a.download = fileName;
+        $('#download').html(a);
+        a.click();
+        $('#download').html('');
+        //var host = window.location.origin;
+        //$.ajax({
+        //    url: host+'/Estimation/PrintToFile',
+        //    method: 'POST',
+        //    data: {
+        //        value:calculate()
+        //    },
+        //    success: function (data, status, xhr) {
+        //        debugger;
+        //        var binaryData = [];
+        //        binaryData.push(data);
+        //        var fileName = xhr.getResponseHeader("fileName")
+        //        var a = document.createElement('a');
+        //        var url = window.URL.createObjectURL(new Blob(binaryData, {type:'text/plain'}));
+        //        a.href = url;
+        //        a.download = fileName;
+        //        $('#download').html(a);
+        //        a.click();
+        //        $('#download').html('');
+        //    }
+        //});
+    }
+
+    function calculate() {
+        var totalValue = $('#price').val() * $('#gram').val();
+        var total = 0;
+        if ($('#userType')[0].innerText.indexOf("privileged") != -1) {
+             total =totalValue -( (totalValue * 2) / 100);
+        }
+        else {
+             total = totalValue;
+        }
+        return total;
+    }
+
+
+</script>
